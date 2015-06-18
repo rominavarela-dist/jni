@@ -60,6 +60,9 @@ JNIEXPORT void JNICALL Java_MPIController_init(JNIEnv *env, jclass clazz, jobjec
       &children, MPI_ERRCODES_IGNORE);
 
   std::cout << "MPI Initialized" << endl;
+  MPI_Recv(&n_children, 1, MPI_INT, 0, 0, children, MPI_STATUS_IGNORE);
+  std::cout << "[" << rank << "]" << " Got " << n_children << " slaves..." << endl;
+
   return;
 }
 
@@ -67,10 +70,11 @@ JNIEXPORT void JNICALL Java_MPIController_init(JNIEnv *env, jclass clazz, jobjec
 * @method sayHello
 **/
 JNIEXPORT void JNICALL Java_MPIController_sayHello(JNIEnv *env, jobject thisObj) {
-  std::cout << "[" << rank << "]" << "HELLO FROM MASTER @ " << processor_name << endl;
-  MPI_Recv(&n_children, 1, MPI_INT, 0, 0, children, MPI_STATUS_IGNORE);
-  std::cout << "[" << rank << "]" << " Got " << n_children << " slaves..." << endl;
-  std::cout << "[" << rank << "]" << "BYE BYE FROM MASTER" << endl;
+  int n= 100;
+
+  for(int i=0;i<n_children;i++)
+    MPI_Send(&n, 1, MPI_INT, i, 0, children);
+    
   return;
 }
 

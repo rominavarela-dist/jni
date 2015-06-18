@@ -14,16 +14,14 @@ MPI_Comm children;
 char processor_name[MPI_MAX_PROCESSOR_NAME];
 int name_len;
 
-void slave_work()
+void run()
 {
-  std::cout << "[" << rank << "]" << "HELLO FROM SLAVE @ " << processor_name << endl;
-
-  n_children = MPI::COMM_WORLD.Get_size();
-
-  if (rank == MASTER)
-    MPI_Send(&n_children, 1, MPI_INT, 0, 0, parent);
-
-  std::cout << "[" << rank << "]" << "BYE BYE FROM SLAVE" << endl;
+  while(true)
+  {
+    int n;
+    MPI_Recv(&n, 1, MPI_INT, 0, 0, parent, MPI_STATUS_IGNORE);
+    std::cout << "[" << rank << "]" << " got " << n << endl;
+  }
 }
 
 /**
@@ -37,8 +35,11 @@ int main(int argc, char* argv[])
   parent = MPI::COMM_WORLD.Get_parent();
   MPI_Get_processor_name(processor_name, &name_len);
 
-  //work
-  slave_work();
+  n_children = MPI::COMM_WORLD.Get_size();
+  if (rank == MASTER)
+    MPI_Send(&n_children, 1, MPI_INT, 0, 0, parent);
+
+  run();
 
   //finialize
   MPI_Finalize();
