@@ -3,6 +3,7 @@
 #include <cstdlib>//legacy stdlib.h and time.h
 #include <iostream>
 #include <dlfcn.h>
+#include <cstring>
 #include "MPIController.h"
 
 using namespace std;
