@@ -24,8 +24,8 @@ CXXFLAGS+= -shared -fpic
 ### -I ./include
 ###  directory with .h, .hpp
 ###  include<>
-program_INCLUDE_DIRS += /usr/lib/jvm/java-1.7.0-openjdk-amd64/include
-program_INCLUDE_DIRS += /usr/lib/jvm/java-1.7.0-openjdk-amd64/include/linux
+program_INCLUDE_DIRS += /usr/lib/jvm/java-1.8.0-openjdk-amd64/include
+program_INCLUDE_DIRS += /usr/lib/jvm/java-1.8.0-openjdk-amd64/include/linux
 ###  -L ./lib
 ###  directory with .a .so .lib .dll
 program_LIBRARY_DIRS =
