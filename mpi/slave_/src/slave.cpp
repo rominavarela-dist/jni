@@ -16,12 +16,13 @@ int name_len;
 
 void run()
 {
-  while(true)
-  {
+  //while(true)
+  //{
+    std::cout << "[" << rank << "]" << "HELLO FROM SLAVE @ " << processor_name << endl;
     int n;
     MPI_Recv(&n, 1, MPI_INT, 0, 0, parent, MPI_STATUS_IGNORE);
     std::cout << "[" << rank << "]" << " got " << n << endl;
-  }
+  //}
 }
 
 /**

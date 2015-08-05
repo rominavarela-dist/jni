@@ -1,6 +1,6 @@
-class_DST_DIR = ./app/bin/
-header_DST_DIR = ./app/include/
-lib_DST_DIR = ./app/lib/
+class_DST_DIR = ./
+header_DST_DIR = ./
+lib_DST_DIR = ./
 
 ##########################################################
 ### java

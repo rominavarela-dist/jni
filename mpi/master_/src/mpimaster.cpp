@@ -55,8 +55,8 @@ JNIEXPORT void JNICALL Java_MPIController_init(JNIEnv *env, jclass clazz, jobjec
 
   MPI_Info info;
   MPI_Info_create(&info);
-  MPI_Info_set(info,"add-hostfile","../slave_/app/host_file");
-  MPI_Comm_spawn("../slave_/app/slave", MPI_ARGV_NULL, 4,
+  MPI_Info_set(info,"add-hostfile","./host_file");
+  MPI_Comm_spawn("../slave_/slave", MPI_ARGV_NULL, 4,
       info, 0, MPI_COMM_WORLD,
       &children, MPI_ERRCODES_IGNORE);
 
