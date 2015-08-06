@@ -22,6 +22,7 @@ void run()
     int n;
     MPI_Recv(&n, 1, MPI_INT, 0, 0, parent, MPI_STATUS_IGNORE);
     std::cout << "[" << rank << "]" << " got " << n << endl;
+    sleep(1);
   //}
 }
 
