@@ -5,6 +5,9 @@
 
 using namespace std;
 
+const int FINALIZE= 0;
+const int SAY_HELLO= 1;
+
 //mpi
 int rank;
 int n_children;
@@ -16,14 +19,21 @@ int name_len;
 
 void run()
 {
-  //while(true)
-  //{
-    std::cout << "[" << rank << "]" << "HELLO FROM SLAVE @ " << processor_name << endl;
-    int n;
-    MPI_Recv(&n, 1, MPI_INT, 0, 0, parent, MPI_STATUS_IGNORE);
-    std::cout << "[" << rank << "]" << " got " << n << endl;
-    sleep(1);
-  //}
+  int command;
+
+  while(true)
+  {
+    MPI_Recv(&command, 1, MPI_INT, 0, 0, parent, MPI_STATUS_IGNORE);
+
+    switch(command)
+    {
+      case SAY_HELLO:
+        std::cout << "[" << rank << "]" << "HELLO FROM SLAVE @ " << processor_name << endl;
+        break;
+      case FINALIZE:
+        return;
+    }
+  }
 }
 
 /**
@@ -37,10 +47,12 @@ int main(int argc, char* argv[])
   parent = MPI::COMM_WORLD.Get_parent();
   MPI_Get_processor_name(processor_name, &name_len);
 
+  //send something
   n_children = MPI::COMM_WORLD.Get_size();
   if (rank == MASTER)
     MPI_Send(&n_children, 1, MPI_INT, 0, 0, parent);
 
+  //work
   run();
 
   //finialize

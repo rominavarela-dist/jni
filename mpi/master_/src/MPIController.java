@@ -13,15 +13,19 @@ public class MPIController {
     }
 
     private static native boolean loadGlobalLibraries();
-    private native void init(String[] args);
+    private native void init();
     private native void sayHello();
     private native void finish();
 
     // Test Driver
     public static void main(String[] args) {
        MPIController ctrl = new MPIController();
-       ctrl.init(args);
-       ctrl.sayHello();
+       ctrl.init();
+       for(int i=0; i<10; i++)
+        {
+            System.out.println("(iteration "+i+")");
+            ctrl.sayHello();
+        }
        ctrl.finish();
     }
 }

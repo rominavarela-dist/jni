@@ -22,7 +22,7 @@ JNIEXPORT jboolean JNICALL Java_MPIController_loadGlobalLibraries
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_MPIController_init
-  (JNIEnv *, jclass, jobjectArray);
+  (JNIEnv *, jobject);
 
 /*
  * Class:     MPIController
